@@ -47,4 +47,35 @@ router.post('/add', authorize, async (request, response) => {
 
 });
 
+router.delete('/:customerId', async (request, response) => {
+  const customerId = request.params.customerId;
+
+  try {
+    const con = await mysql.createConnection(databaseConfig);
+    const [databaseResponse] = await con.query('DELETE FROM customers WHERE id = ?', [customerId]);
+
+    con.end();
+    response.send(databaseResponse);
+  } catch (error) {
+    response.status(500).send({ error: 'Unexpected error. Try again' });
+  }
+
+});
+
+router.patch('/:customerId', async (request, response) => {
+  const customerId = request.params.customerId;
+  const adminInput = request.body;
+
+  try {
+    const con = await mysql.createConnection(databaseConfig);
+    const [databaseResponse] = await con.query('UPDATE customers SET ? WHERE id = ?', [adminInput, customerId]);
+
+    con.end();
+    response.send(databaseResponse);
+  } catch (error) {
+    response.status(500).send({ error: 'Unexpected error. Try again' });
+  }
+
+});
+
 module.exports = router;
