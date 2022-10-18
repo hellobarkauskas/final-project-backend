@@ -78,4 +78,18 @@ router.post('/login', async (request, response) => {
 
 });
 
+router.get('/users', async (request, response) => {
+  try {
+    const con = await mysql.createConnection(databaseConfig);
+    const [users] = await con.query('SELECT * FROM admin');
+
+    con.end();
+    response.send(users);
+  } catch (error) {
+    response.status(500).send({ error: 'Unexpected error. Try again'});
+    console.log(error);
+  }
+
+});
+
 module.exports = router;
