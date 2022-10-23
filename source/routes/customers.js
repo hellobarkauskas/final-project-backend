@@ -19,7 +19,7 @@ router.get('/', authorize, async (request, response) => {
   try {
     const adminId = request.admin.admin_id;
     const con = await mysql.createConnection(databaseConfig);
-    const [customers] = await con.query('SELECT * FROM customers WHERE admin_id = ?', [adminId]);
+    const [customers] = await con.query('SELECT customers.id, customers.name, customers.surname, customers.email, customers.age, admin.username AS admin_id FROM customers LEFT JOIN admin ON customers.admin_id = admin.id WHERE customers.admin_id = ?', [adminId]);
 
     con.end();
     response.send(customers);
