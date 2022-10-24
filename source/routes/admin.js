@@ -35,7 +35,7 @@ router.post('/register', async (request, response) => {
     const [databaseResponse] = await con.query('INSERT INTO admin SET ?', [registerData]);
 
     con.end();
-    response.send({ message: 'Account created' });
+    response.send({ message: 'Account created!' });
   } catch (error) {
     response.status(500).send({ error: 'Unexpected error. Please try again' });
   }
