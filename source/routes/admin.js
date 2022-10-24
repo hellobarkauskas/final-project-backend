@@ -24,7 +24,7 @@ router.post('/register', async (request, response) => {
   try {
     registerData = await registerSchema.validateAsync(registerData);
   } catch (error) {
-    return response.status(400).send({ error: 'Missing required field information' });
+    return response.status(400).send({ error: 'Missing required field information!' });
   }
 
   try {
