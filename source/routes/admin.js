@@ -71,7 +71,7 @@ router.post('/login', async (request, response) => {
 
     console.log(token, admin[0].id);
 
-    response.send({ token: token, admin_id: admin[0].id });
+    response.send({ message: 'Login successful!', token: token, admin_id: admin[0].id });
   } catch (error) {
     response.status(500).send({ error: 'Unexpected error. Please try again' });
   }
